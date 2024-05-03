@@ -32,7 +32,7 @@ public class NewItemActivity extends AppCompatActivity {
             return insets;
         });
 
-        ImageButton imgCI = findViewById(R.id.imbCI);
+        ImageButton imgCI = findViewById(R.id.imbCl);
         imgCI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +85,7 @@ public class NewItemActivity extends AppCompatActivity {
         if (requestCode == PHOTO_PICKER_REQUEST) {
             if (resultCode == Activity.RESULT_OK) {
                 photoSelected = data.getData();
-                ImageView imvfotoPreview = findViewById(R.id.imvfotoPreview);
+                ImageView imvfotoPreview = findViewById(R.id.imvPhotoPreview);
                 imvfotoPreview.setImageURI(photoSelected);
             }
         }
