@@ -2,6 +2,7 @@ package tavares.soraia.lista.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,8 @@ import androidx.core.view.WindowInsetsCompat;
 import tavares.soraia.lista.R;
 
 public class NewItemActivity extends AppCompatActivity {
+    static int PHOTO_PICKER_REQUEST = 1;
+    Uri photoSelected = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +82,7 @@ public class NewItemActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode,
-                                    @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PHOTO_PICKER_REQUEST) {
             if (resultCode == Activity.RESULT_OK) {
