@@ -2,6 +2,7 @@ package tavares.soraia.lista.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -14,11 +15,14 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import tavares.soraia.lista.R;
 import tavares.soraia.lista.adapter.MyAdapter;
 import tavares.soraia.lista.model.MyItem;
+import tavares.soraia.lista.util.Util;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -83,7 +87,14 @@ public class MainActivity extends AppCompatActivity {
                 MyItem myItem = new MyItem();
                 myItem.title = data.getStringExtra("title");
                 myItem.description = data.getStringExtra("description");
-                myItem.photo = data.getData();
+                Uri selectedPhotoURI = data.getData();
+
+                try {
+                    Bitmap photo = Util.getBitmap(MainActivity.this, selectedPhotoURI, 100, 100);
+                    myItem.photo = photo;
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
 
                 itens.add(myItem);
                 // Notifica o adaptador sobre a inserção do novo item
@@ -91,4 +102,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+
 }
