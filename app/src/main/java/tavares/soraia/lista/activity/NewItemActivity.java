@@ -17,8 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import tavares.soraia.lista.R;
+import tavares.soraia.lista.model.NewItemActivityViewModel;
 
 public class NewItemActivity extends AppCompatActivity {
     // Definindo um código para a solicitação do seletor de fotos
@@ -39,6 +41,14 @@ public class NewItemActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        NewItemActivityViewModel vm = new ViewModelProvider(this).get(NewItemActivityViewModel.class);
+
+        Uri selectPhotoLocation = vm.getSelectPhotoLocation();
+        if (selectPhotoLocation != null) {
+            ImageView imvfotoPreview = findViewById(R.id.imvPhotoPreview);
+            imvfotoPreview.setImageURI(selectPhotoLocation);
+        }
+
 
         // Configurando o ImageButton para abrir o seletor de fotos ao ser clicado
         ImageButton imgCI = findViewById(R.id.imbCl);
@@ -101,10 +111,13 @@ public class NewItemActivity extends AppCompatActivity {
             // Verificando se o resultado é bem-sucedido
             if (resultCode == Activity.RESULT_OK) {
                 // Armazenando a URI da foto selecionada
-                photoSelected = data.getData();
+                Uri photoSelected = data.getData();
                 // Exibindo a pré-visualização da foto selecionada
                 ImageView imvfotoPreview = findViewById(R.id.imvPhotoPreview);
                 imvfotoPreview.setImageURI(photoSelected);
+                NewItemActivityViewModel vm = new ViewModelProvider(this)
+                        .get(NewItemActivityViewModel.class);
+                vm.setSelectPhotoLocation(photoSelected);
             }
         }
     }

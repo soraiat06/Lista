@@ -44,7 +44,7 @@ public class MyAdapter extends RecyclerView.Adapter {
         View v = holder.itemView; // Obtém a visualização do ViewHolder
 
         ImageView imvfoto = v.findViewById(R.id.imvPhoto); // Referência à ImageView para exibir a foto
-        imvfoto.setImageURI(myItem.photo); // Define a imagem da foto do item atual na ImageView
+        imvfoto.setImageBitmap(myItem.photo); // Define a imagem da foto do item atual na ImageView
 
         TextView tvTitle = v.findViewById(R.id.tvTitle); // Referência ao TextView para exibir o título
         tvTitle.setText(myItem.title); // Define o texto do título do item atual no TextView

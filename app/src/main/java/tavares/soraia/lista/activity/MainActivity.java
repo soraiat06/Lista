@@ -3,6 +3,7 @@ package tavares.soraia.lista.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import tavares.soraia.lista.R;
 import tavares.soraia.lista.adapter.MyAdapter;
+import tavares.soraia.lista.model.MainActivityViewModel;
 import tavares.soraia.lista.model.MyItem;
 import tavares.soraia.lista.util.Util;
 
@@ -54,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Inicializa o RecyclerView e o adaptador
         RecyclerView rvItens = findViewById(R.id.rvItens);
+        MainActivityViewModel vm = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        List<MyItem> itens = vm.getItens();
+
         myAdapter = new MyAdapter(this, itens);
         rvItens.setAdapter(myAdapter);
         rvItens.setHasFixedSize(true);
@@ -95,10 +101,12 @@ public class MainActivity extends AppCompatActivity {
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
-
+                MainActivityViewModel vm = new ViewModelProvider(this).get(MainActivityViewModel.class);
+                List<MyItem> itens = vm.getItens();
                 itens.add(myItem);
                 // Notifica o adaptador sobre a inserção do novo item
                 myAdapter.notifyItemInserted(itens.size()-1);
+
             }
         }
     }
