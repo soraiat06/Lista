@@ -25,8 +25,6 @@ import tavares.soraia.lista.model.NewItemActivityViewModel;
 public class NewItemActivity extends AppCompatActivity {
     // Definindo um código para a solicitação do seletor de fotos
     static int PHOTO_PICKER_REQUEST = 1;
-    // Uri para armazenar a foto selecionada
-    Uri photoSelected = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +66,9 @@ public class NewItemActivity extends AppCompatActivity {
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Uri selectPhotoLocation = vm.getSelectPhotoLocation();
                 // Verificando se uma foto foi selecionada
-                if (photoSelected == null) {
+                if (selectPhotoLocation == null) {
                     Toast.makeText(NewItemActivity.this, "É necessário selecionar uma imagem!", Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -91,7 +90,7 @@ public class NewItemActivity extends AppCompatActivity {
                 }
                 // Criando uma intenção para retornar os dados inseridos à atividade anterior
                 Intent i = new Intent();
-                i.setData(photoSelected);
+                i.setData(selectPhotoLocation);
                 i.putExtra("title", title);
                 i.putExtra("description", description);
                 // Configurando o resultado como bem-sucedido e passando os dados

@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
     // Constante para identificar a solicitação de um novo item
     static int NEW_ITEM_REQUEST = 1;
 
-    // Lista para armazenar os itens
-    List<MyItem> itens = new ArrayList<>();
 
     // Adaptador para o RecyclerView
     MyAdapter myAdapter;
